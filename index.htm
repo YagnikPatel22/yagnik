@@ -348,53 +348,6 @@
     color: white;
     border-color: var(--color-accent);
 }
-        /* ===============================
-   Scroll Reveal for Quotes
-=================================*/
-
-.reveal-quote {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s ease;
-}
-
-.reveal-quote.active {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* ===============================
-   Daily Quote Fade Animation
-=================================*/
-
-.fade-quote {
-    opacity: 0;
-    transform: scale(0.98);
-    transition: all 0.6s ease;
-}
-
-.fade-quote.show {
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* Share Button */
-.share-btn {
-    font-family: var(--font-sans);
-    font-size: 0.85rem;
-    padding: 0.4rem 0.9rem;
-    border-radius: 20px;
-    border: 1px solid var(--color-border);
-    background: transparent;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.share-btn:hover {
-    background: black;
-    color: white;
-}
-
 
 
 
@@ -832,44 +785,42 @@
 
     <!-- Random Quote of the Day -->
     <div class="quote-of-day">
-    <h3>Quote of the Day</h3>
-    <p id="daily-quote-text" class="fade-quote"></p>
-    <button class="share-btn" onclick="shareToX()">Share to X</button>
-</div>
-
+        <h3>Quote of the Day</h3>
+        <p id="daily-quote-text"></p>
+    </div>
 
     <!-- All Quotes -->
     <div class="quotes-container">
         <ul class="quotes-list">
-            <li  class="reveal-quote">
+            <li>
                 <span class="quote-text">Your comfort zone is renting space in your potential.</span>
                 <button class="copy-btn">Copy</button>
             </li>
-            <li  class="reveal-quote">
+            <li>
                 <span class="quote-text">Discipline is choosing what you want most over what you want now.</span>
                 <button class="copy-btn">Copy</button>
             </li>
-            <li  class="reveal-quote">
+            <li>
                 <span class="quote-text">If you can control your focus, you can control your future.</span>
                 <button class="copy-btn">Copy</button>
             </li>
-            <li  class="reveal-quote">
+            <li>
                 <span class="quote-text">Pain is temporary. Regret is permanent.</span>
                 <button class="copy-btn">Copy</button>
             </li>
-            <li  class="reveal-quote">
+            <li>
                 <span class="quote-text">Small actions done daily beat motivation done occasionally.</span>
                 <button class="copy-btn">Copy</button>
             </li>
-            <li  class="reveal-quote">
+            <li>
                 <span class="quote-text">You don’t lack talent — you lack consistent effort.</span>
                 <button class="copy-btn">Copy</button>
             </li>
-            <li  class="reveal-quote">
+            <li>
                 <span class="quote-text">Be the driver of your life, not the passenger of your habits.</span>
                 <button class="copy-btn">Copy</button>
             </li>
-            <li  class="reveal-quote">
+            <li>
                 <span class="quote-text">Your future is hidden inside your daily routine.</span>
                 <button class="copy-btn">Copy</button>
             </li>
@@ -1020,10 +971,10 @@ window.addEventListener('scroll', revealQuotesOnScroll);
 revealQuotesOnScroll();
 </script>
 
-<script>
-/* ===============================
-   🎲 Random Quote of the Day
-=================================*/
+    <script>
+// ==============================
+// 🎲 Random Quote of the Day
+// ==============================
 
 const quotes = [
 "Your comfort zone is renting space in your potential.",
@@ -1036,27 +987,17 @@ const quotes = [
 "Your future is hidden inside your daily routine."
 ];
 
-let currentDailyQuote = "";
-
 function getDailyQuote() {
     const today = new Date().getDate();
     const index = today % quotes.length;
-    currentDailyQuote = quotes[index];
-
-    const quoteEl = document.getElementById("daily-quote-text");
-    quoteEl.classList.remove("show");
-
-    setTimeout(() => {
-        quoteEl.textContent = currentDailyQuote;
-        quoteEl.classList.add("show");
-    }, 200);
+    document.getElementById("daily-quote-text").textContent = quotes[index];
 }
 
 getDailyQuote();
 
-/* ===============================
-   📋 Copy to Clipboard
-=================================*/
+// ==============================
+// 📋 Copy to Clipboard
+// ==============================
 
 document.querySelectorAll(".copy-btn").forEach(button => {
     button.addEventListener("click", function() {
@@ -1066,44 +1007,10 @@ document.querySelectorAll(".copy-btn").forEach(button => {
         this.textContent = "Copied!";
         setTimeout(() => {
             this.textContent = "Copy";
-        }, 1200);
+        }, 1500);
     });
 });
-
-/* ===============================
-   🚀 Scroll Reveal Animation
-=================================*/
-
-const revealQuotes = document.querySelectorAll(".reveal-quote");
-
-function revealOnScroll() {
-    const windowHeight = window.innerHeight;
-
-    revealQuotes.forEach((el, index) => {
-        const elementTop = el.getBoundingClientRect().top;
-
-        if (elementTop < windowHeight - 80) {
-            setTimeout(() => {
-                el.classList.add("active");
-            }, index * 120);
-        }
-    });
-}
-
-window.addEventListener("scroll", revealOnScroll);
-revealOnScroll();
-
-/* ===============================
-   🐦 Share to X
-=================================*/
-
-function shareToX() {
-    const text = encodeURIComponent(currentDailyQuote);
-    const url = `https://twitter.com/intent/tweet?text=${text}`;
-    window.open(url, "_blank");
-}
 </script>
-
 
 </body>
 </html>
